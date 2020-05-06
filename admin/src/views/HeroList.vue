@@ -26,7 +26,7 @@
 
 <script>
   export default {
-    name: 'ItemsList',
+    name: 'HeroList',
     data() {
       return {
         items: []

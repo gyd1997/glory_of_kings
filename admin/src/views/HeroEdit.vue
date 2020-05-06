@@ -115,7 +115,7 @@
 
 <script>
 export default {
-  name: "ItemEdit",
+  name: "HeroEdit",
   props: {
     id: {}
   },

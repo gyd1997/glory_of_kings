@@ -6,4 +6,7 @@ module.exports = app => {
   }).then(() => console.log('数据库连接成功了'))
   .catch(err => console.log(err))
   
+  require('require-all')(__dirname + '/../models')
+
+  
 }

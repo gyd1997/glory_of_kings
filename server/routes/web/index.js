@@ -49,14 +49,6 @@ module.exports = app => {
   })
 
   router.get('/news/list', async (req, res) => {
-    /* const parent = await Category.findOne({
-      name: '新闻分类'
-    }).populate({
-      path: 'children',
-      populate: {
-        path: 'newsList'
-      }
-    }).lean() */
     const parent = await Category.findOne({
       name: '新闻分类',
     })
@@ -116,6 +108,35 @@ module.exports = app => {
       await Hero.insertMany(cat.heroes)
     }
     res.send(await Hero.find())
+  })
+
+  // 英雄列表接口
+  router.get('/heroes/list', async (req, res) => {
+    const parent = await Category.findOne({
+      name: '英雄分类',
+    })
+    const cats = await Category.aggregate([
+      { $match: { parent: parent._id } },
+      {
+        $lookup: {
+          from: 'heroes',
+          localField: '_id',
+          foreignField: 'categories',
+          as: 'heroList',
+        },
+      }
+    ])
+    const subCats = cats.map(v => v._id)
+    cats.unshift({
+      name: '热门',
+      heroList: await Hero.find()
+        .where({
+          categories: { $in: subCats },
+        })
+        .limit(10)
+        .lean(),
+    })
+    res.send(cats)
   })
 
   app.use('/web/api', router)

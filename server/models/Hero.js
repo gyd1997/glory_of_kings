@@ -2,69 +2,78 @@ const mongoose = require('mongoose')
 
 const schema = new mongoose.Schema({
   name: {
-    type: String,
+    type: String
   },
   avatar: {
-    type: String,
+    type: String
+  },
+  banner: {
+    type: String
   },
   title: {
-    type: String,
+    type: String
   },
   categories: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Category',
-    },
+      ref: 'Category'
+    }
   ],
   scores: {
     difficult: {
-      type: Number,
+      type: Number
     },
     skills: {
-      type: Number,
+      type: Number
     },
     attack: {
-      type: Number,
+      type: Number
     },
     survive: {
-      type: Number,
-    },
-  },  
+      type: Number
+    }
+  },
   skills: [
     {
       icon: { type: String },
       name: { type: String },
       description: { type: String },
       tips: { type: String },
-    },
+      delay: {
+        type: String
+      },
+      cost: {
+        type: String
+      }
+    }
   ],
   items1: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Item',
-    },
+      ref: 'Item'
+    }
   ],
   items2: [
     {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: 'Item',
-    },
+      ref: 'Item'
+    }
   ],
   usageTips: {
-    type: String,
+    type: String
   },
   battleTips: {
-    type: String,
+    type: String
   },
   teamTips: {
-    type: String,
+    type: String
   },
   partners: [
     {
       hero: { type: mongoose.SchemaTypes.ObjectId, ref: 'Hero' },
-      description: { type: String },
-    },
-  ],
+      description: { type: String }
+    }
+  ]
 })
 
 module.exports = mongoose.model('Hero', schema, 'heroes')
